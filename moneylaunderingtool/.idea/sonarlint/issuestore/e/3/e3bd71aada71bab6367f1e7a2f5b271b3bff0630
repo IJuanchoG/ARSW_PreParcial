@@ -1,15 +1,15 @@
 
-B
-java:S1659"&Declare "firstRun" on a separate line.(ﬁ€ü8≥≠”Ê∆.
-å
-java:S22731"oMove this call to "wait()" into a synchronized block to be sure the monitor on "MoneyLaunderingThread" is held.(ûä‰û8ﬁ·∂Á∆.
-c
-java:S21422"FEither re-interrupt this method or rethrow the "InterruptedException".(‰†πÄ8ﬁ·∂Á∆.
-m
-java:S22361"PRefactor the synchronisation mechanism to not use a Thread instance as a monitor(ûä‰û8ﬁ·∂Á∆.
-M
-java:S2446"0"notify" may not wake up the appropriate thread.(≠¿Ù…8∫ŸßÊ∆.
 W
 java:S1161,":Add the "@Override" annotation above this method signature(ìñ˝˛8ä è‰∆.
 m
 java:S2236"PRefactor the synchronisation mechanism to not use a Thread instance as a monitor(≠¿Ù…8∫ŸßÊ∆.
+c
+java:S21422"FEither re-interrupt this method or rethrow the "InterruptedException".(‰†πÄ8ﬁ·∂Á∆.
+M
+java:S2446"0"notify" may not wake up the appropriate thread.(≠¿Ù…8∫ŸßÊ∆.
+å
+java:S22731"oMove this call to "wait()" into a synchronized block to be sure the monitor on "MoneyLaunderingThread" is held.(ûä‰û8ﬁ·∂Á∆.
+m
+java:S22361"PRefactor the synchronisation mechanism to not use a Thread instance as a monitor(ûä‰û8ﬁ·∂Á∆.
+B
+java:S1659"&Declare "firstRun" on a separate line.(ﬁ€ü8≥≠”Ê∆.

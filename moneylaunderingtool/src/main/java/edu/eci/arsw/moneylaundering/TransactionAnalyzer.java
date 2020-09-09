@@ -17,8 +17,7 @@ public class TransactionAnalyzer {
 
     public synchronized void addTransaction(Transaction transaction)
     {
-        if(transaction.amount < LAUNDERING_LIMIT_AMOUNT)
-        {
+        if(transaction.amount < LAUNDERING_LIMIT_AMOUNT){
             String destinationAccount = transaction.destinationAccount;
             if(!smallTransactionsPerAccount.containsKey(destinationAccount))
             {

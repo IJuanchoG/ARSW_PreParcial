@@ -18,12 +18,15 @@ public class MoneyLaundering
     private TransactionReader transactionReader;
     private int amountOfFilesTotal;
     private AtomicInteger amountOfFilesProcessed;
+    private ArrayList<MoneyLaunderingThread> moneyLaunderingThreads;
+    public static final int NUMBER_THREADS = 5;
 
     public MoneyLaundering()
     {
         transactionAnalyzer = new TransactionAnalyzer();
         transactionReader = new TransactionReader();
         amountOfFilesProcessed = new AtomicInteger();
+        moneyLaunderingThreads = new ArrayList<>();
     }
 
     public void processTransactionData()
@@ -31,6 +34,15 @@ public class MoneyLaundering
         amountOfFilesProcessed.set(0);
         List<File> transactionFiles = getTransactionFileList();
         amountOfFilesTotal = transactionFiles.size();
+        int amountOfFileByThread = amountOfFilesTotal/NUMBER_THREADS;
+        for (int i = 0; i < NUMBER_THREADS; i++) {
+            int aux = i+1==NUMBER_THREADS?amountOfFilesTotal%NUMBER_THREADS:0;
+            List<File> numberFiles = transactionFiles.subList(i*amountOfFileByThread, (i+1)*amountOfFileByThread+aux);
+
+            //System.out.println("LEL "+numberFiles.toString()+" Valores: "+(i*amountOfFileByThread)+" "+((i+1)*amountOfFileByThread+aux));
+
+        }
+        System.out.println(amountOfFileByThread);
         for(File transactionFile : transactionFiles)
         {            
             List<Transaction> transactions = transactionReader.readTransactionsFromFile(transactionFile);
@@ -58,17 +70,59 @@ public class MoneyLaundering
         return csvFiles;
     }
 
+
+    private void crearHilos() {
+        amountOfFilesProcessed.set(0);
+        List<File> transactionFiles = getTransactionFileList();
+        amountOfFilesTotal = transactionFiles.size();
+        int amountOfFileByThread = amountOfFilesTotal/NUMBER_THREADS;
+        for (int i = 0; i < NUMBER_THREADS; i++) {
+            int aux = i+1==NUMBER_THREADS?amountOfFilesTotal%NUMBER_THREADS:0;
+            List<File> numberFiles = transactionFiles.subList(i*amountOfFileByThread, (i+1)*amountOfFileByThread+aux);
+            MoneyLaunderingThread moneyLaunderingThread = new MoneyLaunderingThread(transactionAnalyzer, transactionReader, amountOfFilesProcessed, numberFiles);
+            moneyLaunderingThreads.add(moneyLaunderingThread);
+
+        }
+    }
+    private static void esperaSegura() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+    }
+
     public static void main(String[] args)
     {
         MoneyLaundering moneyLaundering = new MoneyLaundering();
-        Thread processingThread = new Thread(() -> moneyLaundering.processTransactionData());
-        processingThread.start();
+        moneyLaundering.crearHilos();
+
         while(true)
         {
+
             Scanner scanner = new Scanner(System.in);
             String line = scanner.nextLine();
-            if(line.contains("exit"))
+            if(line.contains("exit")){
                 break;
+            }
+            if(line.contains("")){
+                esperaSegura();
+                for (MoneyLaunderingThread t :moneyLaundering.moneyLaunderingThreads) {
+                    if(t.isPaused() && !t.isFirstRun()){
+                        t.pause();
+                        System.out.println("Hilos en pausa.");
+                    }else{
+                        if(t.isFirstRun()){
+                            t.setFirstRun(false);
+                            t.start();
+                        }else{
+                            t.unpause();
+                        }
+                        System.out.println("Hilos Corriendo...");
+
+                    }
+                }
+            }
             String message = "Processed %d out of %d files.\nFound %d suspect accounts:\n%s";
             List<String> offendingAccounts = moneyLaundering.getOffendingAccounts();
             String suspectAccounts = offendingAccounts.stream().reduce("", (s1, s2)-> s1 + "\n"+s2);
@@ -77,6 +131,8 @@ public class MoneyLaundering
         }
 
     }
+
+
 
 
 }

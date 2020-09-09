@@ -1,0 +1,14 @@
+
+o
+java:S3776_"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(ÛÛ¯ø8ÏôÕæÆ.
+a
+java:S1854("?Remove this useless assignment to local variable "numberFiles".(ü¼şúÿÿÿÿ8î©’åÆ.
+Z	java:S106-"9Replace this use of System.out or System.err by a logger.(‚ïÖ´üÿÿÿÿ8®à¶äÆ.
+R
+java:S1481("0Remove this unused "numberFiles" local variable.(ü¼şúÿÿÿÿ8î©’åÆ.
+h
+java:S2142Z"FEither re-interrupt this method or rethrow the "InterruptedException".(àÏƒùüÿÿÿÿ8üâ¹çÆ.
+Z	java:S106q"9Replace this use of System.out or System.err by a logger.(Š§Û‡şÿÿÿÿ8ˆú¦çÆ.
+U	java:S106y"9Replace this use of System.out or System.err by a logger.(ıœñè8“¨—çÆ.
+]	java:S125*"<This block of commented-out lines of code should be removed.(¶…÷îúÿÿÿÿ8î©’åÆ.
+[	java:S106‚"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ8ˆú¦çÆ.

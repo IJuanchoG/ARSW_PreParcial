@@ -7,7 +7,7 @@ import java.util.List;
 public class MoneyLaunderingServiceStub implements MoneyLaunderingService {
     @Override
     public void updateAccountStatus(SuspectAccount suspectAccount) {
-        //TODO
+
     }
 
     @Override

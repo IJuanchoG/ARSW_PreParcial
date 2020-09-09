@@ -18,5 +18,4 @@ public class MoneyLaunderingController
         return moneyLaunderingService.getSuspectAccounts();
     }
 
-    //TODO
 }
